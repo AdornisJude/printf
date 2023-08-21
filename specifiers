@@ -17,7 +17,7 @@ void specifiers_printf(const char *type, int output)
  */
 int main(void)
 {
-    int value = 8;
+    int value;
 
     specifiers_printf("Value using %%d: %d\n", value);
     specifiers_printf("Value using %%i: %i\n", value);
