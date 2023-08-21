@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+/**
+ * specifiers_printf - A custom printf function for specifiers.
+ * @type: The format specifier string.
+ * @output: The value to be printed using the format specifier.
+ */
+void specifiers_printf(const char *type, int output)
+{
+    printf(type, output);
+}
+
+/**
+ * main - Entry point of the program.
+ *
+ * Return: Always 0 (success).
+ */
+int main(void)
+{
+    int value = 8;
+
+    specifiers_printf("Value is %d: %d\n", value);
+    specifiers_printf("Value is %i: %d\n", value);
+
+    return 0;
+}
+
