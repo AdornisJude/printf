@@ -19,8 +19,8 @@ int main(void)
 {
     int value = 8;
 
-    specifiers_printf("Value is %d: %d\n", value);
-    specifiers_printf("Value is %i: %d\n", value);
+    specifiers_printf("Value using %%d: %d\n", value);
+    specifiers_printf("Value using %%i: %i\n", value);
 
     return 0;
 }
