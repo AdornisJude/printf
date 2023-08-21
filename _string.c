@@ -9,7 +9,7 @@
 int _string(char *str)
 {
 	int i = 0;
-	int count = 0;
+	int len = 0;
 
 	if (str == NULL)
 	{
@@ -20,7 +20,7 @@ int _string(char *str)
 	{
 		_putchar(str[i]);
 		i++;
-		count++;
+		len++;
 	}
-	return (count);      
+	return (len);
 }

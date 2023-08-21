@@ -1,58 +1,68 @@
 #include "main.h"
 
+int _printf(const char *format, ...);
+
 /**
  * _printf - custom implementation of printf
  * @format: format specifier
  * @...: variable arguments
  *
- * Return: total count of characters printed
+ * Return: total length of characters printed or -1 on error
  */
 int _printf(const char *format, ...)
 {
-	int count = 0;
+	int len = 0;
 	va_list func_arg;
+	(void)format;
 
-	va_start(func_arg, format);
-
-	if (format == NULL || !format[0])
+	if (format == NULL)
 		return (-1);
 
+	va_start(func_arg, format);
 	while (*format != '\0')
 	{
 		if (*format == '%')
-		{	
+		{
 			format++;
-
 			if (*format == 'c')
 			{
 				char c = va_arg(func_arg, int);
-				_putchar(c);
-				count++;
-			}
-			else if (*format =='s')
-			{
-				char(*str) = va_arg(func_arg, char *);
 
+				_putchar(c);
+				len++;
+			}
+			else if (*format == 's')
+			{
+				char *str = va_arg(func_arg, char *);
+
+				if (str == NULL)
+					str = "(null)";
 				while (*str != '\0')
 				{
 					_putchar(*str);
 					str++;
-					count++;
-				}	
+					len++;
+				}
 			}
-		}
-		else if (*format == '%')
-		{
-			_putchar('%');
-			count++;
+			else if (*format == '%')
+			{
+				_putchar('%');
+				len++;
+			}
+			else
+			{
+				_putchar('%');
+				_putchar(*format);
+				len += 2;
+			}
 		}
 		else
 		{
 			_putchar(*format);
-			count++;
+			len++;
 		}
 		format++;
 	}
 	va_end(func_arg);
-	return (count);
+	return (len);
 }
