@@ -49,6 +49,12 @@ int _printf(const char *format, ...)
 				_putchar('%');
 				len++;
 			}
+			else if (*format == 'd' || *format == 'i')
+			{
+				int num = va_arg(func_arg, int);
+
+				len += _number(num);
+			}
 			else
 			{
 				_putchar('%');
