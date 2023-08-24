@@ -1,23 +1,39 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-void _print_binary(unsigned int num) {
-    if (num > 1) {
-        _print_binary(num / 2);
+/**
+ * print_binary - Recursive function to print binary representation of a number
+ * @number: The number to be converted to binary
+ */
+void print_binary(unsigned int number)
+{
+    if (number > 1)
+    {
+        print_binary(number / 2);
     }
-    putchar('0' + num % 2);
+    putchar('0' + number % 2);
 }
 
-void _printf(const char *format, ...) {
+/**
+ * my_printf - Custom printf function with binary conversion specifier
+ * @format: The format string
+ * @...: Variable arguments
+ */
+void my_printf(const char *format, ...)
+{
     va_list args;
     va_start(args, format);
 
-    while (*format != '\0') {
-        if (*format == '%' && *(format + 1) == 'b') {
+    while (*format != '\0')
+    {
+        if (*format == '%' && *(format + 1) == 'b')
+        {
             format += 2;
-            unsigned int num = va_arg(args, unsigned int);
-            _print_binary(num);
-        } else {
+            unsigned int number = va_arg(args, unsigned int);
+            print_binary(number);
+        }
+        else
+        {
             putchar(*format);
             format++;
         }
@@ -26,7 +42,12 @@ void _printf(const char *format, ...) {
     va_end(args);
 }
 
-int main(void) {
-    _printf("%b\n", 98);
+/**
+ * main - Entry point
+ * Return: Always 0
+ */
+int main(void)
+{
+   my_printf("%b\n", 98);
     return 0;
 }
