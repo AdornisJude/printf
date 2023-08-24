@@ -1,0 +1,52 @@
+#include <stdarg.h>
+#include <stdio.h>
+
+/**
+ * print_pointer - Print the memory address of a pointer
+ * @ptr: The pointer whose address will be printed
+ */
+void print_pointer(void *ptr)
+{
+    printf("%p", ptr);
+}
+
+/**
+ * _printf - Custom printf function with a pointer conversion specifier
+ * @format: The format string
+ * @...: Variable arguments
+ */
+void _printf(const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    while (*format != '\0')
+    {
+        if (*format == '%' && *(format + 1) == 'p')
+        {
+            format += 2;
+            void *ptr = va_arg(args, void *);
+            print_pointer(ptr);
+        }
+        else
+        {
+            putchar(*format);
+            format++;
+        }
+    }
+
+    va_end(args);
+}
+
+/**
+ * main - Entry point
+ * Return: Always 0
+ */
+int main(void)
+{
+    int value = 42;
+    _printf("\n");
+    _printf("Value address: %p\n", &value);
+    return 0;
+}
+
