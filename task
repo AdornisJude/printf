@@ -1,0 +1,32 @@
+#include <stdarg.h>
+#include <stdio.h>
+
+void _print_binary(unsigned int num) {
+    if (num > 1) {
+        _print_binary(num / 2);
+    }
+    putchar('0' + num % 2);
+}
+
+void _printf(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+
+    while (*format != '\0') {
+        if (*format == '%' && *(format + 1) == 'b') {
+            format += 2;
+            unsigned int num = va_arg(args, unsigned int);
+            _print_binary(num);
+        } else {
+            putchar(*format);
+            format++;
+        }
+    }
+
+    va_end(args);
+}
+
+int main(void) {
+    _printf("%b\n", 98);
+    return 0;
+}
