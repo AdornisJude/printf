@@ -1,0 +1,52 @@
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+
+/**
+ * print_special_string - Print a string with special character handling
+ * @str: The input string to print
+ */
+void print_special_string(const char *str) {
+    for (size_t i = 0; i < strlen(str); i++) {
+        char c = str[i];
+        if ((c >= 0 && c < 32) || c >= 127) {
+            printf("\\x%02X", (unsigned char)c);
+        } else {
+            putchar(c);
+        }
+    }
+}
+
+/**
+ * _printf - Custom printf function with a special conversion specifier
+ * @format: The format string
+ * @...: Variable arguments
+ */
+void _printf(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+
+    while (*format != '\0') {
+        if (*format == '%' && (*(format + 1) == 'S')) {
+            format += 2;
+            const char *input_str = va_arg(args, const char *);
+            print_special_string(input_str);
+        } else {
+            putchar(*format);
+            format++;
+        }
+    }
+
+    va_end(args);
+}
+
+/**
+ * main - Entry point
+ * Return: Always 0
+ */
+int main(void) {
+    _printf("My preference for leopard print is my own unique characteristic\n");
+    _printf("Special String: %S\n", "Unique\nPrint");
+    return 0;
+}
+
