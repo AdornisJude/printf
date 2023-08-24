@@ -2,20 +2,42 @@
 #include <stdio.h>
 
 /**
- * print_binary - Recursive function to print binary representation of a number
- * @number: The number to be converted to binary
+ * print_dec - Print an unsigned integer as decimal
+ * @num: The unsigned integer to print
  */
-void print_binary(unsigned int number)
+void print_dec(unsigned int num)
 {
-    if (number > 1)
-    {
-        print_binary(number / 2);
-    }
-    putchar('0' + number % 2);
+    printf("%u", num);
 }
 
 /**
- * my_printf - Custom printf function with binary conversion specifier
+ * print_oct - Print an unsigned integer as octal
+ * @num: The unsigned integer to print
+ */
+void print_oct(unsigned int num)
+{
+    printf("%o", num);
+}
+
+/**
+ * print_hexadecimal - Print an unsigned integer as hexadecimal
+ * @num: The unsigned integer to print
+ * @uppercase: Whether to use uppercase letters (1) or not (0)
+ */
+void print_hexadecimal(unsigned int num, int uppercase)
+{
+    if (uppercase)
+    {
+        printf("%X", num);
+    }
+    else
+    {
+        printf("%x", num);
+    }
+}
+
+/**
+ * my_printf - Custom printf function with extended conversion specifiers
  * @format: The format string
  * @...: Variable arguments
  */
@@ -26,11 +48,25 @@ void my_printf(const char *format, ...)
 
     while (*format != '\0')
     {
-        if (*format == '%' && *(format + 1) == 'b')
+        if (*format == '%' && (*(format + 1) == 'u' || *(format + 1) == 'o' || *(format + 1) == 'x' || *(format + 1) == 'X'))
         {
             format += 2;
-            unsigned int number = va_arg(args, unsigned int);
-            print_binary(number);
+            unsigned int num = va_arg(args, unsigned int);
+            switch (*(format - 1))
+            {
+                case 'u':
+                    print_dec(num);
+                    break;
+                case 'o':
+                    print_oct(num);
+                    break;
+                case 'x':
+                    print_hexadecimal(num, 0);
+                    break;
+                case 'X':
+                    print_hexadecimal(num, 1);
+                    break;
+            }
         }
         else
         {
@@ -48,6 +84,10 @@ void my_printf(const char *format, ...)
  */
 int main(void)
 {
-   my_printf("%b\n", 98);
+    my_printf("3. Experiencing the unexperienced is the path to true understanding\n");
+    my_printf("Decimal value: %u\n", 123);
+    my_printf("Octal value: %o\n", 123);
+    my_printf("Lowercase Hex value: %x\n", 123);
+    my_printf("Uppercase Hex value: %X\n", 123);
     return 0;
 }
